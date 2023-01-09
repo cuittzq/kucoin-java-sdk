@@ -9,6 +9,7 @@ import com.kucoin.sdk.rest.response.MarginAccountResponse;
 import com.kucoin.sdk.rest.response.MarginConfigResponse;
 import com.kucoin.sdk.rest.response.MarginOrderCreateResponse;
 import com.kucoin.sdk.rest.response.MarginPriceStrategyResponse;
+import com.kucoin.sdk.rest.response.MarginSymbolResponse;
 import com.kucoin.sdk.rest.response.MarkPriceResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -36,4 +37,7 @@ public interface MarginAPIRetrofit {
 
     @GET("api/v1/risk/limit/strategy")
     Call<KucoinResponse<MarginPriceStrategyResponse>> getMarginPriceStrategy(@Query("marginModel") String marginModel);
+
+    @GET("api/v2/margin/symbols")
+    Call<KucoinResponse<MarginSymbolResponse>> getMarginSymbols(@Query("isIsolated") Boolean isIsolated, @Query("symbol") String symbol);
 }

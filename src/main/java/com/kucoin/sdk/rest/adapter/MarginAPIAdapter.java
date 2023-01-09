@@ -11,6 +11,7 @@ import com.kucoin.sdk.rest.response.MarginAccountResponse;
 import com.kucoin.sdk.rest.response.MarginConfigResponse;
 import com.kucoin.sdk.rest.response.MarginOrderCreateResponse;
 import com.kucoin.sdk.rest.response.MarginPriceStrategyResponse;
+import com.kucoin.sdk.rest.response.MarginSymbolResponse;
 import com.kucoin.sdk.rest.response.MarkPriceResponse;
 
 import java.io.IOException;
@@ -52,5 +53,10 @@ public class MarginAPIAdapter extends AuthRetrofitAPIImpl<MarginAPIRetrofit> imp
     @Override
     public MarginPriceStrategyResponse getMarginPriceStrategy(String marginModel) throws IOException {
         return executeSync(getAPIImpl().getMarginPriceStrategy(marginModel));
+    }
+
+    @Override
+    public MarginSymbolResponse getMarginSymbols(Boolean isIsolated, String symbol) throws IOException {
+        return executeSync(getAPIImpl().getMarginSymbols(isIsolated, symbol));
     }
 }

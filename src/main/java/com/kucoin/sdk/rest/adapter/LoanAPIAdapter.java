@@ -20,7 +20,11 @@ import com.kucoin.sdk.rest.response.BorrowResponse;
 import com.kucoin.sdk.rest.response.DoneLendItem;
 import com.kucoin.sdk.rest.response.LastTradeResponse;
 import com.kucoin.sdk.rest.response.LendAssetsResponse;
+import com.kucoin.sdk.rest.response.LendMarketResponse;
 import com.kucoin.sdk.rest.response.LendResponse;
+import com.kucoin.sdk.rest.response.MarginLendCurrencyResponse;
+import com.kucoin.sdk.rest.response.MarginLendOrder;
+import com.kucoin.sdk.rest.response.MarginLendTradeOrder;
 import com.kucoin.sdk.rest.response.MarketItemResponse;
 import com.kucoin.sdk.rest.response.Pagination;
 import com.kucoin.sdk.rest.response.SettledTradeItem;
@@ -123,5 +127,30 @@ public class LoanAPIAdapter extends AuthRetrofitAPIImpl<LoanAPIRetrofit> impleme
     @Override
     public List<LastTradeResponse> queryLastTrade(String currency) throws IOException {
         return executeSync(getAPIImpl().queryLastTrade(currency));
+    }
+
+    @Override
+    public MarginLendCurrencyResponse queryMarginLendConfig(String currency) throws IOException {
+        return executeSync(getAPIImpl().queryMarginLendConfig(currency));
+    }
+
+    @Override
+    public LendMarketResponse queryMarginLendMarket(String currency, Integer term) throws IOException {
+        return executeSync(getAPIImpl().queryMarginLendMarket(currency, term));
+    }
+
+    @Override
+    public Pagination<MarginLendOrder> queryLendOrderByPage(String currency, String status, Integer currentPage, Integer pageSize) throws IOException {
+        return executeSync(getAPIImpl().queryLendOrderByPage(currency, status, currentPage, pageSize));
+    }
+
+    @Override
+    public MarginLendOrder queryLendOrder(String orderId) throws IOException {
+        return executeSync(getAPIImpl().queryLendOrder(orderId));
+    }
+
+    @Override
+    public Pagination<MarginLendTradeOrder> queryLendTradeOrderByPage(String currency, String status, Integer currentPage, Integer pageSize) throws IOException {
+        return executeSync(getAPIImpl().queryLendTradeOrderByPage(currency, status, currentPage, pageSize));
     }
 }

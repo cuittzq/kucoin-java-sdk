@@ -17,7 +17,11 @@ import com.kucoin.sdk.rest.response.DoneLendItem;
 import com.kucoin.sdk.rest.response.KucoinResponse;
 import com.kucoin.sdk.rest.response.LastTradeResponse;
 import com.kucoin.sdk.rest.response.LendAssetsResponse;
+import com.kucoin.sdk.rest.response.LendMarketResponse;
 import com.kucoin.sdk.rest.response.LendResponse;
+import com.kucoin.sdk.rest.response.MarginLendCurrencyResponse;
+import com.kucoin.sdk.rest.response.MarginLendOrder;
+import com.kucoin.sdk.rest.response.MarginLendTradeOrder;
 import com.kucoin.sdk.rest.response.MarketItemResponse;
 import com.kucoin.sdk.rest.response.Pagination;
 import com.kucoin.sdk.rest.response.SettledTradeItem;
@@ -105,4 +109,26 @@ public interface LoanAPIRetrofit {
     @GET("api/v1/margin/trade/last")
     Call<KucoinResponse<List<LastTradeResponse>>> queryLastTrade(@Query("currency") String currency);
 
+    @GET("api/v2/margin/lend/config")
+    Call<KucoinResponse<MarginLendCurrencyResponse>> queryMarginLendConfig(@Query("currency") String currency);
+
+    @GET("api/v2/margin/lend/market")
+    Call<KucoinResponse<LendMarketResponse>> queryMarginLendMarket(@Query("currency") String currency, @Query("term") Integer term);
+
+    @GET("api/v2/margin/lend/orders")
+    Call<KucoinResponse<Pagination<MarginLendOrder>>> queryLendOrderByPage(
+            @Query("currency") String currency,
+            @Query("status") String status,
+            @Query("currentPage") Integer currentPage,
+            @Query("pageSize") Integer pageSize);
+
+    @GET("api/v2/margin/lend")
+    Call<KucoinResponse<MarginLendOrder>> queryLendOrder(@Query("orderId") String orderId);
+
+    @GET("api/v2/margin/lend/trade/orders")
+    Call<KucoinResponse<Pagination<MarginLendTradeOrder>>> queryLendTradeOrderByPage(
+            @Query("currency") String currency,
+            @Query("status") String status,
+            @Query("currentPage") Integer currentPage,
+            @Query("pageSize") Integer pageSize);
 }

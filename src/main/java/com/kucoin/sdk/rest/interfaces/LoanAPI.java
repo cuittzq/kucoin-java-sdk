@@ -15,13 +15,21 @@ import com.kucoin.sdk.rest.response.BorrowQueryResponse;
 import com.kucoin.sdk.rest.response.BorrowRepaidResponse;
 import com.kucoin.sdk.rest.response.BorrowResponse;
 import com.kucoin.sdk.rest.response.DoneLendItem;
+import com.kucoin.sdk.rest.response.KucoinResponse;
 import com.kucoin.sdk.rest.response.LastTradeResponse;
 import com.kucoin.sdk.rest.response.LendAssetsResponse;
+import com.kucoin.sdk.rest.response.LendMarketResponse;
 import com.kucoin.sdk.rest.response.LendResponse;
+import com.kucoin.sdk.rest.response.MarginLendCurrencyResponse;
+import com.kucoin.sdk.rest.response.MarginLendOrder;
+import com.kucoin.sdk.rest.response.MarginLendTradeOrder;
 import com.kucoin.sdk.rest.response.MarketItemResponse;
 import com.kucoin.sdk.rest.response.Pagination;
 import com.kucoin.sdk.rest.response.SettledTradeItem;
 import com.kucoin.sdk.rest.response.UnsettledTradeItem;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 import java.io.IOException;
 import java.util.List;
@@ -125,6 +133,7 @@ public interface LoanAPI {
      * @param pageSize
      * @return
      */
+    @Deprecated
     Pagination<ActiveLendItem> queryActiveLend(
             String currency,
             Integer currentPage,
@@ -144,6 +153,7 @@ public interface LoanAPI {
      * @param pageSize
      * @return
      */
+    @Deprecated
     Pagination<DoneLendItem> queryDoneLend(
             String currency,
             Integer currentPage,
@@ -163,6 +173,7 @@ public interface LoanAPI {
      * @param pageSize
      * @return
      */
+    @Deprecated
     Pagination<UnsettledTradeItem> queryUnsettledTrade(
             String currency,
             Integer currentPage,
@@ -181,6 +192,7 @@ public interface LoanAPI {
      * @param pageSize
      * @return
      */
+    @Deprecated
     Pagination<SettledTradeItem> querySettledTrade(
             String currency,
             Integer currentPage,
@@ -219,5 +231,70 @@ public interface LoanAPI {
      * @return
      */
     List<LastTradeResponse> queryLastTrade(String currency) throws IOException;
+
+    /**
+     * <p>
+     * Request via this endpoint to get the configure info of the margin lend.
+     * </p>
+     * @param currency
+     * @return
+     * @throws IOException
+     */
+    MarginLendCurrencyResponse queryMarginLendConfig(String currency) throws IOException;
+
+    /**
+     * <p>
+     * Request via this endpoint to query the market list of the margin lend.
+     * </p>
+     * @param currency
+     * @param term
+     * @return
+     * @throws IOException
+     */
+    LendMarketResponse queryMarginLendMarket(String currency, Integer term) throws IOException;
+
+    /**
+     * <p>
+     * Request via this endpoint to query the orders of the margin lend.
+     * </p>
+     * @param currency
+     * @param status
+     * @param currentPage
+     * @param pageSize
+     * @return
+     * @throws IOException
+     */
+    Pagination<MarginLendOrder> queryLendOrderByPage(
+            String currency,
+            String status,
+            Integer currentPage,
+            Integer pageSize) throws IOException;
+
+    /**
+     * <p>
+     * Request via this endpoint to query the order of the margin lend by orderId.
+     * </p>
+     * @param orderId
+     * @return
+     * @throws IOException
+     */
+    MarginLendOrder queryLendOrder(String orderId) throws IOException;
+
+    /**
+     * <p>
+     * Request via this endpoint to query the trade orders of the margin lend.
+     * </p>
+     * @param currency
+     * @param status
+     * @param currentPage
+     * @param pageSize
+     * @return
+     * @throws IOException
+     */
+    Pagination<MarginLendTradeOrder> queryLendTradeOrderByPage(
+            String currency,
+            String status,
+            Integer currentPage,
+            Integer pageSize) throws IOException;
 
 }
